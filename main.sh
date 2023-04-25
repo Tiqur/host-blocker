@@ -24,12 +24,14 @@ case "$1" in
 
     # Append to hosts file
     echo "Starting..."
-    printf  "#-HostBlocker-#%b#-HostBlocker-#" "$hosts" >> /etc/hosts
+    printf "#-HostBlocker-#%b#-HostBlocker-#" "$hosts" >> /etc/hosts
+    resolvectl flush-caches
     ;;
   stop)
     # Remove from hosts file
     echo "Stopping..."
     sudo sed -i '/#-HostBlocker-#/,/#-HostBlocker-#/d' /etc/hosts
+    resolvectl flush-caches
     ;;
   *)
     # Help
